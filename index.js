@@ -84,10 +84,10 @@ function downloadImg(url, savePath) {
     return new Promise((resolve, reject) => {
         https.get(url, res => {
             if (res.statusCode != 200) return reject(res);
-            let data = "";
-            res.on("data", i => data += i);
+            let data;
+            res.on("data", i => data = data ? Buffer.concat([data, i]) : i);
             res.on("end", () => {
-                fs.writeFileSync(savePath, Buffer.from(data));
+                fs.writeFileSync(savePath, data);
                 resolve(res);
             });
         });
