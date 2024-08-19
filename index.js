@@ -62,9 +62,6 @@ const dirs = {};
     console.log(`Done! Took ${(endDate - startDate) / 1000} seconds.`);
 })();
 
-/**
- * Get HTML from https://bluemoji.io/
- */
 function getPage() {
     return new Promise((resolve, reject) => {
         https.get("https://bluemoji.io/", res => {
@@ -76,12 +73,6 @@ function getPage() {
     });
 }
 
-/**
- * Save image to file
- * @param {string} url Image URL
- * @param {string} savePath Save path
- * @returns 
- */
 function downloadImg(url, savePath) {
     return new Promise((resolve, reject) => {
         https.get(url, res => {
@@ -96,45 +87,20 @@ function downloadImg(url, savePath) {
     });
 }
 
-/**
- * Decode any HTML hex, uppercase all words and replace dash with space
- * @param {string} name 
- * @returns 
- */
 function fixName(name) {
     return decodeHtmlHex(name).split("-").map(upperCase).join(" ");
 }
 
-/**
- * Decode HTML hex from string
- * @param {string} string 
- * @returns 
- */
 function decodeHtmlHex(string) {
     return string.replace(htmlHexRegex, (match, hex) => String.fromCharCode(parseInt(hex, 16)));
 }
 
-/**
- * Fix path if it contains invalid characters
- * @param {string} path 
- * @returns 
- */
 function fixFilePath(path) {
     return path.replace(fileRegex, "");
 }
 
-/**
- * Uppercase each word of string
- * @param {string} string 
- * @returns 
- */
 function upperCase(string) { return `${string.charAt(0).toUpperCase()}${string.substring(1)}` }
 
-/**
- * Log string with optional foreground color
- * @param {string} string 
- * @param {string} color 
- */
 function log(string, color) {
     console.log(`${log.colors[color?.toLowerCase()] || ""}${string}${log.reset}`);
 }
