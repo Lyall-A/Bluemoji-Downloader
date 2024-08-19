@@ -21,12 +21,14 @@ const dirs = {};
 
     // Download all emojis
     await (async function downloadEmoji(index = 0) {
-        const [match, name, color, alt, imgUrl] = htmlMatch[index].match(emojiRegex); // Try to get emoji name, color and image URL
-        if (!name || !color || !imgUrl) {
+        const [match, name, color, alt, imgPath] = htmlMatch[index].match(emojiRegex); // Try to get emoji name, color and image URL
+        if (!name || !color || !imgPath) {
             // Skip emoji if name, color or image URL not matched
             console.log(`Couldn't get full match of an emoji! Match: ${match}`);
             return downloadNextEmoji();
         }
+
+        const imgUrl = imgPath.startsWith("/") ? `https://bluemoji.io${imgPath}` : imgPath;
 
         if (alt) names[name] = fixName(alt);
         const fixedName = names[name] || fixName(name);
@@ -139,7 +141,7 @@ function log(string, color) {
 log.colors = {
     // https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
     // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-    black: "\x1b[30m",
+    black: "\x1b[90m", // Changed to gray
     red: "\x1b[31m",
     green: "\x1b[32m",
     yellow: "\x1b[33m",
