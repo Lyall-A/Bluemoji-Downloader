@@ -103,7 +103,7 @@ function decodeHtmlHex(string) {
 }
 
 function fixFilePath(path) {
-    return path.replace(/\\|\/|\*|\?|\"|\<|\>|\|/g, "");
+    return path.replace(/\\|\/|\:|\*|\?|\"|\<|\>|\|/g, "");
 }
 
 function capitalize(string) { return `${string.charAt(0).toUpperCase()}${string.substring(1)}` }
